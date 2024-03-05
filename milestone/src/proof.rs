@@ -1,18 +1,19 @@
-use rlp::Decodable;
+use alloy_rlp::Decodable;
+use reth_primitives::revm_primitives::bitvec::macros::internal::funty::Fundamental;
 
 pub struct Proof {}
 
 impl Proof {
     pub fn checkProof(header_hexs: Vec<String>) -> bool {
         let header_bytes0 = hex::decode(header_hexs[0].as_str()).unwrap_or_default();
-        let h0 = ethereum::Header::decode(&rlp::Rlp::new(header_bytes0.as_slice())).unwrap();
+        let h0 = reth_primitives::Header::decode(&mut header_bytes0.as_slice()).unwrap();
         if h0.number.as_u64() != 3887749 {
             return false;
         }
 
 
         let header_bytes1 = hex::decode(header_hexs[1].as_str()).unwrap_or_default();
-        let h1 = ethereum::Header::decode(&rlp::Rlp::new(header_bytes1.as_slice())).unwrap();
+        let h1 = reth_primitives::Header::decode(&mut header_bytes1.as_slice()).unwrap();
         if h1.number.as_u64() != 3887750 {
             return false;
         }

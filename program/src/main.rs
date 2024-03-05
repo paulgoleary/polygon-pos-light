@@ -3,10 +3,6 @@
 #![no_main]
 sp1_zkvm::entrypoint!(main);
 
-use rs_merkle::{
-    algorithms::Sha256, proof_serializers::DirectHashesOrder, Error, Hasher, MerkleProof, MerkleTree,
-};
-use poly_milestone::hasher::KeccakAlgorithm;
 use poly_milestone::proof;
 
 pub fn main() {

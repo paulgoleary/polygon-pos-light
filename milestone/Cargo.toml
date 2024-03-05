@@ -6,8 +6,8 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-ethereum = { version = "0.15.0", default-features = false, features = ["with-serde"] }
 hex = "0.4.3"
-rlp = { version = "0.5.2", default-features = false, features = ["derive"] }
 rs_merkle = { version = "1.4", default-features = false }
 sha3 = "0.10.8"
+reth-primitives = { git = "https://github.com/sp1-patches/reth", default-features = false, branch = "sp1-reth", features = ["arbitrary"] }
+alloy-rlp = { version = "0.3", default-features = false }
