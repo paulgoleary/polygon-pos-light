@@ -19,6 +19,7 @@ impl CheckpointHeader {
         }
     }
 
+    // hmmm... not sure this does anything i need ...?
     fn hash32(&self) -> [u8; 32] {
         let mut be_num = [0 as u8; 32];
         be_num[24..].copy_from_slice(&self.number.to_be_bytes());
@@ -38,7 +39,7 @@ impl CheckpointHeader {
 
 #[cfg(test)]
 mod test {
-    use crate::header::CheckpointHeader;
+    use crate::checkpoint::CheckpointHeader;
 
     #[test]
     fn test_basic() {
