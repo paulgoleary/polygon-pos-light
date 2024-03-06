@@ -1,5 +1,6 @@
 use alloy_rlp::Decodable;
-use reth_primitives::{Address, keccak256, recover_signer_unchecked};
+use reth_primitives::{Address, recover_signer_unchecked};
+use crate::hasher::keccak256;
 use reth_primitives::revm_primitives::bitvec::macros::internal::funty::Fundamental;
 use crate::msg;
 use crate::msg::MsgMilestone;
@@ -55,7 +56,7 @@ impl Proof {
         // prepend magic byte to msg data
         let mut sign_msg_bytes = msg_bytes.to_vec();
         sign_msg_bytes.insert(0, 1);
-        let sign_hash = keccak256(sign_msg_bytes);
+        let sign_hash = keccak256(&sign_msg_bytes);
 
         // RECOVER all the signing addresses
         let sig_addrs: Vec<Address> = sigs.iter().map(|sig| {
