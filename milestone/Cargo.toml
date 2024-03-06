@@ -11,4 +11,4 @@ rs_merkle = { version = "1.4", default-features = false }
 sha3 = "0.10.8"
 reth-primitives = { git = "https://github.com/sp1-patches/reth", default-features = false, branch = "sp1-reth" }
 alloy-rlp = { version = "0.3", default-features = false }
-secp256k1 = { version = "0.28.2", default-features = false, features = ["recovery"] }
+k256 = "0.13.3"

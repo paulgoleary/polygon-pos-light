@@ -18,8 +18,8 @@ fn main() {
     // Generate the proof for the given program.
     let mut proof = SP1Prover::prove(ELF, stdin).expect("proving failed");
 
-    let res = proof.stdout.read::<bool>();
-    println!("res: {}", res);
+    // let res = proof.stdout.read::<bool>();
+    // println!("res: {}", res);
 
     // Verify proof.
     SP1Verifier::verify(ELF, &proof).expect("verification failed");
