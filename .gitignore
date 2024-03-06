@@ -15,4 +15,7 @@ pgo-data.profdata
 **/proof-with-pis.json
 **/proof-with-io.json
 
+# no reason to check in compile targets?
+**/riscv32im-succinct-zkvm-elf
+
 .idea
