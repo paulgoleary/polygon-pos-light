@@ -5,4 +5,4 @@ name = "polygon-pos-light-script"
 edition = "2021"
 
 [dependencies]
-sp1-core = { git = "https://github.com/succinctlabs/sp1.git" }
+sp1-core = { git = "https://github.com/succinctlabs/sp1.git", rev = "c2e012f6bf0aa5d973d29638b333a03d7749c341" }
