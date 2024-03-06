@@ -1,4 +1,3 @@
-
 pub type EthAddress = [u8; 20];
 
 #[cfg(test)]
@@ -12,5 +11,25 @@ mod test {
         let h = reth_primitives::Header::decode(&mut header_bytes.as_slice()).unwrap();
         assert_eq!(h.number.as_u64(), 3887749);
         println!("{}", h.hash_slow().to_string())
+    }
+
+    use reth_primitives::{keccak256, recover_signer_unchecked};
+
+    #[test]
+    fn test_ecrecover() {
+        let sig = [0u8; 65];
+        let hash = [0u8; 32];
+        let addr = recover_signer_unchecked(&sig, &hash).unwrap_or_default();
+        assert_eq!(addr.to_string(), "0x0000000000000000000000000000000000000000");
+
+        let sig_bytes = hex::decode("32f2a7ee00f089c49c79ca8a9615278586b60385bb4bd8d0a23ee9a99fae315a3a304d0f21047c35ee4ba2d69d7fb4a23e68f24c70dafb73828e6a1d7ee4d66901").unwrap_or_default();
+        let mut data_bytes = hex::decode("0000000000000000000000004ad84f7014b7b44f723f284a85b166233797143900000000000000000000000000000000000000000000000000000000003b528500000000000000000000000000000000000000000000000000000000003b52926f73bdeda24c8d6b978628e10c425f5a8bbf181a547dafdf5eb156135626728e00000000000000000000000000000000000000000000000000000000000138820000000000000000000000000000000000000000000000000000000000000000").unwrap_or_default();
+        data_bytes.insert(0, 1);
+
+        let mut sig2 = [0u8; 65];
+        sig2.copy_from_slice(sig_bytes.as_slice());
+
+        let addr2 = recover_signer_unchecked(&sig2, &keccak256(data_bytes)).unwrap_or_default();
+        assert_eq!(addr2.to_string(), "0xbb583A9Dde59Ca64AaA14807f37A4C665C0d72c7")
     }
 }
