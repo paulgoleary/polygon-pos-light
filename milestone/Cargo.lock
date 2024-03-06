@@ -1370,9 +1370,9 @@ version = "0.1.0"
 dependencies = [
  "alloy-rlp",
  "hex",
+ "k256",
  "reth-primitives",
  "rs_merkle",
- "secp256k1",
  "sha3",
 ]
 

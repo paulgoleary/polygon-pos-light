@@ -1370,9 +1370,9 @@ version = "0.1.0"
 dependencies = [
  "alloy-rlp",
  "hex",
+ "k256",
  "reth-primitives",
  "rs_merkle",
- "secp256k1",
  "sha3",
 ]
 
@@ -1381,6 +1381,7 @@ name = "polygon-pos-light-program"
 version = "0.1.0"
 dependencies = [
  "poly_milestone",
+ "sp1-precompiles",
  "sp1-zkvm",
 ]
 
@@ -1984,15 +1985,16 @@ dependencies = [
 [[package]]
 name = "sp1-zkvm"
 version = "0.1.0"
-source = "git+https://github.com/succinctlabs/sp1.git#8ac9e54ceb049d79030f2f8831e039af0ca61b30"
+source = "git+https://github.com/succinctlabs/sp1.git#ef6887b76f451da6f703ee9802cf88f182ebc32c"
 dependencies = [
- "anyhow",
  "bincode",
  "cfg-if",
  "getrandom",
  "k256",
+ "libm",
  "rand",
  "serde",
+ "sp1-precompiles",
 ]
 
 [[package]]
