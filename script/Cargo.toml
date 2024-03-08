@@ -6,3 +6,7 @@ edition = "2021"
 
 [dependencies]
 sp1-core = { git = "https://github.com/succinctlabs/sp1.git", rev = "c2e012f6bf0aa5d973d29638b333a03d7749c341" }
+
+
+[build-dependencies]
+sp1-helper = { git = "https://github.com/succinctlabs/sp1.git" }
