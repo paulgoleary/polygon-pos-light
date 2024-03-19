@@ -1,5 +1,5 @@
 [package]
-name = "invariant"
+name = "poly_invariant"
 version = "0.1.0"
 edition = "2021"
 
@@ -13,3 +13,7 @@ reth-primitives = { git = "https://github.com/sp1-patches/reth", default-feature
 alloy-rlp = { version = "0.3", default-features = false }
 k256 = "0.13.3"
 tiny-keccak = { git = "https://github.com/sp1-patches/tiny-keccak.git", features = ["keccak"], branch = "chris/test" }
+num-bigint = "0.4.4"
+poseidon-rs = "0.0.10"
+ff = {package="ff_ce" , version="0.11", features = ["derive"]}
+once_cell = "1.19.0"

@@ -3,11 +3,9 @@
 #![no_main]
 sp1_zkvm::entrypoint!(main);
 
-use poly_milestone::proof;
 use poly_milestone::proof::Proof;
 
-pub fn main() {
-    // let headers: Vec<String> = sp1_zkvm::io::read();
+fn test_milestone() {
     let signer_addrs = Proof::check_milestone_proof(
         "d779a24664fd354017a7469607dee3faa87ef4978112d1c8e958b2a5ec7d52f4".to_string(),
         "0000000000000000000000004ad84f7014b7b44f723f284a85b166233797143900000000000000000000000000000000000000000000000000000000003b528500000000000000000000000000000000000000000000000000000000003b52926f73bdeda24c8d6b978628e10c425f5a8bbf181a547dafdf5eb156135626728e00000000000000000000000000000000000000000000000000000000000138820000000000000000000000000000000000000000000000000000000000000000".to_string(),
@@ -26,5 +24,14 @@ pub fn main() {
             "32f2a7ee00f089c49c79ca8a9615278586b60385bb4bd8d0a23ee9a99fae315a3a304d0f21047c35ee4ba2d69d7fb4a23e68f24c70dafb73828e6a1d7ee4d66901".to_string(),
         ],
     );
+}
+
+fn test_invariant() {
+    poly_invariant::proof::Proof::do_balance_test(1000);
+}
+
+pub fn main() {
+    // let headers: Vec<String> = sp1_zkvm::io::read();
+    test_invariant()
     // sp1_zkvm::io::write(&signer_addrs.unwrap());
 }

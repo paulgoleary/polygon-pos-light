@@ -8,3 +8,4 @@ edition = "2021"
 sp1-zkvm = { git = "https://github.com/succinctlabs/sp1.git" }
 sp1-precompiles = { git = "https://github.com/succinctlabs/sp1.git" }
 poly_milestone = { path = "../milestone" }
+poly_invariant = { path = "../invariant" }
