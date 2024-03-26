@@ -1,9 +1,9 @@
 use rs_merkle::MerkleTree;
-use crate::balance::PoseidonAlgorithm;
+// use crate::balance::PoseidonAlgorithm;
+use crate::hasher::KeccakAlgorithm;
 use crate::invariant::{Deposit, ZKEVMDepositMerkle};
 
 pub struct Proof {}
-
 
 impl Proof {
     pub fn do_proof(prev_state: &ZKEVMDepositMerkle,
@@ -29,7 +29,7 @@ impl Proof {
     }
 
     pub fn do_balance_test(num_leafs: u64) {
-        let mut mt: MerkleTree<PoseidonAlgorithm> = Default::default();
+        let mut mt: MerkleTree<KeccakAlgorithm> = Default::default();
 
         for x in 0..num_leafs {
             let d = Deposit::make_test(x);

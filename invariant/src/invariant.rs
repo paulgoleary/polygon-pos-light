@@ -148,6 +148,7 @@ mod test {
     use reth_primitives::Address;
     use crate::hasher::keccak256;
     use crate::invariant::{Deposit, ZKEVMDepositMerkle};
+    use std::str::FromStr;
 
     #[test]
     fn test_deposit_hash() {
@@ -176,6 +177,46 @@ mod test {
         dm.add_leaf(leaf_hash);
         let dm_root = dm.get_root();
         assert_eq!("5ba002329b53c11a2f1dfe90b11e031771842056cf2125b43da8103c199dcd7f", hex::encode(dm_root));
+    }
+
+    #[test]
+    fn test_go_compat() {
+        let mut deposit = Deposit {
+            leaf_type: 0,
+            deposit_cnt: 0,
+            orig_network: 0,
+            orig_address: Address::from_str("0x0000000000000000000000000000000000000000").unwrap(),
+            dest_network: 1,
+            dest_address: Address::from_str("0x1DBA1131000664b884A1Ba238464159892252D3a").unwrap(),
+            amount: BigInt::from_str("100000000000000000").unwrap(),
+            metadata: vec![],
+        };
+        // {
+        //    "removed":false,
+        //    "block_number":16898815,
+        //    "transaction_index":102,
+        //    "log_index":217,
+        //    "transaction_hash":"0x4b75f00d332b21a5ae368c6add032bc296138a0a9129470e394d8becc1e65db9",
+        //    "event_type":2,
+        //    "event_data":{
+        //       "amount":100000000000000000,
+        //       "depositCount":0,
+        //       "destinationAddress":"0x1DBA1131000664b884A1Ba238464159892252D3a",
+        //       "destinationNetwork":1,
+        //       "leafType":0,
+        //       "metadata":"",
+        //       "originAddress":"0x0000000000000000000000000000000000000000",
+        //       "originNetwork":0
+        //    }
+        // }
+
+        let leaf_hash = deposit.leaf_hash();
+        assert_eq!("b7cd745b9fc33c6e233768f51f262865c8cdff188d4e63c16709e389c11d5cd8", hex::encode(leaf_hash));
+
+        let mut dm = ZKEVMDepositMerkle::new();
+        dm.add_leaf(leaf_hash);
+        let dm_root = dm.get_root();
+        assert_eq!("927e6ceecb5b20935d26fbfc57002a59298b6e82640e8d652809e06854d7a81f", hex::encode(dm_root));
     }
 
     #[test]

@@ -1,4 +1,5 @@
 use tiny_keccak::{Hasher, Keccak};
+use rs_merkle::Hasher as MerkleHasher;
 
 // TODO: move to common or something?
 pub fn keccak256(data: &[u8]) -> [u8; 32] {
@@ -8,3 +9,15 @@ pub fn keccak256(data: &[u8]) -> [u8; 32] {
     keccak256.finalize(&mut output);
     output
 }
+
+#[derive(Clone)]
+pub struct KeccakAlgorithm {}
+
+impl MerkleHasher for KeccakAlgorithm {
+    type Hash = [u8; 32];
+
+    fn hash(data: &[u8]) -> [u8; 32] {
+        keccak256(data)
+    }
+}
+

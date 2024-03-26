@@ -1,10 +1,11 @@
 use std::hash::Hash;
+use std::str::FromStr;
 use poseidon_rs::{Fr, FrRepr, Poseidon};
 use rs_merkle::Hasher as MerkleHasher;
 use tiny_keccak::{Hasher, Keccak};
 use once_cell::sync::Lazy;
 use ff::PrimeField;
-use num_bigint::BigInt;
+use num_bigint::{BigInt, BigUint};
 use reth_primitives::Address;
 use crate::hasher::keccak256;
 use crate::invariant::Deposit;
@@ -36,7 +37,8 @@ fn bytes_to_rep(b: &[u8]) -> FrRepr {
         rep[1] = convert_u64(&b[8..]);
     }
     rep[0] = convert_u64(&b[0..]);
-    FrRepr(rep)
+    // FrRepr(rep)
+    FrRepr([0 as u8; 32]) // TODO !!!
 }
 
 impl MerkleHasher for PoseidonAlgorithm {
@@ -45,8 +47,8 @@ impl MerkleHasher for PoseidonAlgorithm {
     fn hash(data: &[u8]) -> [u8; 32] {
         // naive impl of bytes -> field elements for poseidon
         let reps = data.chunks(31)
-            .map(|b| bytes_to_rep(b))
-            .map(|rep| Fr::from_raw_repr(rep).unwrap()).collect();
+            .map(|b| BigUint::from_bytes_be(b).to_string())
+            .map(|rep_str| Fr::from_str(&rep_str).unwrap()).collect();
         let h = POS.hash(reps).unwrap();
         let h_rep = FrRepr::from(h);
         // TODO: endedness?
@@ -104,6 +106,7 @@ mod test {
     use crate::balance::PoseidonAlgorithm;
     use poseidon_rs::{Fr, FrRepr, Poseidon};
     use ff::PrimeField;
+    use std::str::FromStr;
 
     #[test]
     fn test_merkle() {
